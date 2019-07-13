@@ -106,12 +106,21 @@ let g:lightline = {
       \ 'separator':    { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' },
       \ }
+let g:lightline.tabline = {
+      \ 'left': [ [ 'tabs'  ] ],
+      \ 'right': [ [   ]  ] 
+      \}
+" 将F10键映射成切换tab页
+noremap <F10> <ESC>:tabnext<CR>
+
 
 " -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 "                           NERDTree
 " -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 " 设置NERDTree快捷键为F10                                                                                              
-map <F10> :NERDTreeToggle<CR>
+map <F9> :NERDTreeToggle<CR>
+" 设置在NERDTree中打开一个文件时用新tab打开
+let NERDTreeMapOpenInTab='<ENTER>'
 
 " -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 "                           echodoc
@@ -151,3 +160,7 @@ let g:ycm_semantic_triggers =  {
 
 " 打开文件自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
+" 当光标距离底/顶部5行时开始滚动
+set scrolloff=5
+
