@@ -20,6 +20,7 @@ Plugin 'mhinz/vim-startify'         " vim-startify
 Plugin 'scrooloose/nerdtree'        " nerd tree
 Plugin 'Shougo/echodoc.vim'         " 显示函数签名
 Plugin 'tpope/vim-commentary'       " 快速注释
+Plugin 'chxuan/cpp-mode'
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -117,7 +118,7 @@ noremap <F10> <ESC>:tabnext<CR>
 " -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 "                           NERDTree
 " -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
-" 设置NERDTree快捷键为F10                                                                                              
+" 设置NERDTree快捷键为F9
 map <F9> :NERDTreeToggle<CR>
 " 设置在NERDTree中打开一个文件时用新tab打开
 let NERDTreeMapOpenInTab='<ENTER>'
@@ -153,6 +154,9 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
+
+noremap gti <ESC>:YcmCompleter GoToInclude<CR>
+noremap gtd <ESC>:YcmCompleter GoToDefinition<CR>
 
 " -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 "                           普通设置
