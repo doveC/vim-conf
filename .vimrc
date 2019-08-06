@@ -21,6 +21,7 @@ Plugin 'scrooloose/nerdtree'        " nerd tree
 Plugin 'Shougo/echodoc.vim'         " 显示函数签名
 Plugin 'tpope/vim-commentary'       " 快速注释
 Plugin 'chxuan/cpp-mode'
+Plugin 'itchyny/vim-cursorword'
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
