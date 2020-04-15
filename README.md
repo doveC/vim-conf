@@ -1,7 +1,7 @@
 # vim-conf
 **centos7环境下从零配置一个vim所需要的文件。**
 
-具体从零配置一个vim的教程可以参考我的网站：<http://laihaodong.cn/?p=1796>
+具体从零配置一个vim的教程可以参考我的网站：<https://laihaodong.cn/2075.html>
 
 这个repo下有如下文件：
 
