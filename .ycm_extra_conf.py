@@ -83,18 +83,6 @@ get_python_inc(),
 'cpp/ycm/tests/gmock/include',
 '-isystem',
 'cpp/ycm/benchmarks/benchmark/include',
-'-isystem',
-'/usr/bin/../lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5',
-'-isystem',
-'/usr/bin/../lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/x86_64-redhat-linux',
-'-isystem',
-'/usr/bin/../lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/backward',
-'-isystem',
-'/usr/local/include',
-'-isystem',
-'/usr/bin/../lib/clang/3.4.2/include',
-'-isystem',
-'/usr/include',
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
@@ -183,53 +171,3 @@ def GetStandardLibraryIndexInSysPath( sys_path ):
     if os.path.isfile( os.path.join( path, 'os.py' ) ):
       return sys_path.index( path )
   raise RuntimeError( 'Could not find standard library path in Python path.' )
-
-
-def PythonSysPath( **kwargs ):
-  sys_path = kwargs[ 'sys_path' ]
-  for folder in os.listdir( DIR_OF_THIRD_PARTY ):
-    if folder == 'python-future':
-      folder = os.path.join( folder, 'src' )
-      sys_path.insert( GetStandardLibraryIndexInSysPath( sys_path ) + 1,
-                       os.path.realpath( os.path.join( DIR_OF_THIRD_PARTY,
-                                                       folder ) ) )
-      continue
-
-    if folder == 'cregex':
-      interpreter_path = kwargs[ 'interpreter_path' ]
-      major_version = subprocess.check_output( [
-        interpreter_path, '-c', 'import sys; print( sys.version_info[ 0 ] )' ]
-      ).rstrip().decode( 'utf8' )
-      folder = os.path.join( folder, 'regex_{}'.format( major_version ) )
-
-    sys_path.insert( 0, os.path.realpath( os.path.join( DIR_OF_THIRD_PARTY,
-                                                        folder ) ) )
-  return sys_path
-
-def FlagsForFile( filename, **kwargs ):
-  if not database:
-    return {
-      'flags': flags,
-      'include_paths_relative_to_dir': DirectoryOfThisScript()
-    }
-
-  compilation_info = GetCompilationInfoForFile( filename )
-  if not compilation_info:
-    return None
-
-  # Bear in mind that compilation_info.compiler_flags_ does NOT return a
-  # python list, but a "list-like" StringVec object.
-  final_flags = list( compilation_info.compiler_flags_ )
-
-  # NOTE: This is just for YouCompleteMe; it's highly likely that your project
-  # does NOT need to remove the stdlib flag. DO NOT USE THIS IN YOUR
-  # ycm_extra_conf IF YOU'RE NOT 100% SURE YOU NEED IT.
-  try:
-    final_flags.remove( '-stdlib=libc++' )
-  except ValueError:
-    pass
-
-  return {
-    'flags': final_flags,
-    'include_paths_relative_to_dir': compilation_info.compiler_working_dir_
-  }
